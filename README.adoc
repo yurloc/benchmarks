@@ -1,0 +1,50 @@
+## Build
+
+```
+mvn clean package
+```
+
+## Default run
+
+```
+java -jar target/benchmarks.jar
+
+# JMH version: 1.35
+# VM version: JDK 11.0.16, OpenJDK 64-Bit Server VM, 11.0.16+8
+# VM invoker: /home/jlocker/.sdkman/candidates/java/11.0.16-tem/bin/java
+# VM options: <none>
+# Blackhole mode: full + dont-inline hint (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 5 iterations, 10 s each
+# Measurement: 5 iterations, 10 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Throughput, ops/time
+# Parameters: (listSize = 100)
+
+```
+
+### Results
+
+```
+Benchmark                              (listSize)   Mode  Cnt        Score       Error  Units
+ListUtilsBenchmark.collectionsReverse         100  thrpt   25  2147412.780 ± 61786.337  ops/s
+ListUtilsBenchmark.copyAndReverse             100  thrpt   25  2747720.865 ± 20993.841  ops/s
+```
+
+## Customized run example
+
+```
+$ java -jar target/benchmarks.jar -p listSize=10,50,10000 -wi 2 -i 2 -f 2
+```
+
+### Results
+
+```
+Benchmark                              (listSize)   Mode  Cnt         Score         Error  Units
+ListUtilsBenchmark.collectionsReverse          10  thrpt    4  20288667.178 ± 1761533.430  ops/s
+ListUtilsBenchmark.collectionsReverse          50  thrpt    4   4307675.906 ±  480263.793  ops/s
+ListUtilsBenchmark.collectionsReverse       10000  thrpt    4     22267.330 ±    2199.961  ops/s
+ListUtilsBenchmark.copyAndReverse              10  thrpt    4  12217816.771 ±  208812.731  ops/s
+ListUtilsBenchmark.copyAndReverse              50  thrpt    4   5061097.818 ±  607177.373  ops/s
+ListUtilsBenchmark.copyAndReverse           10000  thrpt    4     25993.616 ±     717.025  ops/s
+```
